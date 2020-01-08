@@ -5,6 +5,11 @@ Real-time Rendering of Layered Materials with Anisotropic Normal Distributions
 
 This is an official implementation of the paper "[Real-time Rendering of Layered Materials with Anisotropic Normal Distributions](https://tatsy.github.io/projects/anisolayer19/)".
 
+# Description
+- BRDF & anisotropic_layered.frag: source code
+- figs: sample images
+- sphere.tbscene: sample scene
+
 # Build & Run
 You will 
 Use [Marmoset Toolbag 3](https://marmoset.co/toolbag/) to build and run the program.  
