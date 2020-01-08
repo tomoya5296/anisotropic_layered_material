@@ -387,6 +387,7 @@
 		}
 	}
 
+	//Entry point
 	//For env light
 	void    Anisotropic_layered_env( inout FragmentState s)
 	{

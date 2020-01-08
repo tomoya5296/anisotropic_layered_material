@@ -3,7 +3,7 @@ Real-time Rendering of Layered Materials with Anisotropic Normal Distributions
 
 # Overview
 
-This is an official implementation of the paper "[Real-time Rendering of Layered Materials with Anisotropic Normal Distributions](https://tatsy.github.io/projects/anisolayer19/)".
+This is an official implementation of the paper Real-time Rendering of Layered Materials with Anisotropic Normal Distributions.
 
 # Description
 - BRDF & anisotropic_layered.frag: source code
