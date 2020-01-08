@@ -17,7 +17,7 @@ Use [Marmoset Toolbag 3](https://marmoset.co/toolbag/) to build and run the prog
 Please install [Marmoset Toolbag 3](https://marmoset.co/toolbag/) to your computer beforehand.
 
 For **Windows**, 
-1. Move 'BRDF' and 'anisotropic_layered.frag' to 'Toolbag 3\data\shader\mat\custom' directory
+1. Move 'BRDF' and 'anisotropic_layered.frag' to 'Toolbag 3/data/shader/mat/custom' directory
 2. Launch Marmoset Toolbag 3
 3. Open the sample scene (sphere.tbscene)
 
