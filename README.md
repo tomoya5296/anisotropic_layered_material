@@ -3,7 +3,7 @@ Real-time Rendering of Layered Materials with Anisotropic Normal Distributions
 
 # Overview
 
-This is an official implementation of the paper "Real-time Rendering of Layered Materials with Anisotropic Normal Distributions" (SIIGRAPH ASIA 2019 Tech. brief).
+This is an official implementation of the paper "Real-time Rendering of Layered Materials with Anisotropic Normal Distributions" (SIGGRAPH ASIA 2019 Tech. brief).
 
 # Description
 - BRDF & anisotropic_layered.frag: source code
