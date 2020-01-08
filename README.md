@@ -12,7 +12,7 @@ For **Windows**,
 # Example
 
 We included a simple scene(sphere.tbscene).
-[![](./figs/example.png)]
+![](./figs/example.png)
 
 # Demo movie
 
