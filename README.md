@@ -25,3 +25,7 @@ For **Windows**,
 
 We included a simple scene (sphere.tbscene) .
 ![](./figs/example.png)
+
+# License
+
+This software is released under the MIT License, see LICENSE.txt.
