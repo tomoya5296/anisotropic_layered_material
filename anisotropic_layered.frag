@@ -64,7 +64,7 @@
 
 	vec3 Stretch( in vec3 direction, in vec2 roughness ) 
 	{
-    	return vec3( direction.x * roughness.x, direction.y * roughness.y, direction.z );
+		return vec3( direction.x * roughness.x, direction.y * roughness.y, direction.z );
 	}
 
 	mat2 inverse(in mat2 m)
@@ -134,7 +134,7 @@
 
 		vec3 Rp2 = Rs2 * (term3 - term4) / (term3 + term4);
 
-	    return 0.5 * (Rp2 + Rs2);
+		return 0.5 * (Rp2 + Rs2);
 	}
 
 	vec3 fresnelDielectricExt(float cosThetaI_, float eta)
@@ -173,14 +173,14 @@
 	}
 
 	/* Common Eval Fresnel function. Permits to switch between FGD and non-FGD
-     * evaluations of the Fresnel term.
-     */
-    void evalFresnel(in float ct, in vec3 eta, in vec3 kappa,
-                     out vec3 Rij, out vec3 Tij) 
+	 * evaluations of the Fresnel term.
+	 */
+	void evalFresnel(in float ct, in vec3 eta, in vec3 kappa,
+					 out vec3 Rij, out vec3 Tij) 
 	{
-        Rij = (isZero(kappa)) ? fresnelDielectricExt(ct, eta[0]) * vec3(1.0, 1.0, 1.0) : fresnelConductorExact(ct, eta, kappa);
-        Tij = (isZero(kappa)) ? vec3(1.0, 1.0, 1.0) - Rij : vec3(0.0, 0.0, 0.0);
-    }
+		Rij = (isZero(kappa)) ? fresnelDielectricExt(ct, eta[0]) * vec3(1.0, 1.0, 1.0) : fresnelConductorExact(ct, eta, kappa);
+		Tij = (isZero(kappa)) ? vec3(1.0, 1.0, 1.0) - Rij : vec3(0.0, 0.0, 0.0);
+	}
 
 	// Evaluation of the NDF.
 	//----begin----
@@ -255,30 +255,30 @@
 		//variables
 		float cti = _cti;
 		vec3 R0i = vec3(0.0, 0.0, 0.0), Ri0 = vec3(0.0, 0.0, 0.0), T0i = vec3(1.0, 1.0, 1.0), Ti0 = vec3(1.0, 1.0, 1.0);
-        float s_r0i = 0.0, s_ri0=0.0, s_t0i=0.0, s_ti0=0.0;
-        mat2 s_r0i_ = 0.0, s_ri0_=0.0, s_t0i_=0.0, s_ti0_=0.0;
-        float j0i=1.0, ji0=1.0;
+		float s_r0i = 0.0, s_ri0=0.0, s_t0i=0.0, s_ti0=0.0;
+		mat2 s_r0i_ = 0.0, s_ri0_=0.0, s_t0i_=0.0, s_ti0_=0.0;
+		float j0i=1.0, ji0=1.0;
 
 		//Iterate over the layers
 		for(int i=0; i<NB_LAYERS; ++i)
 		{
 			//Extract layer data
 			vec3 eta_1   = m_etas[i];
-            vec3 eta_2   = m_etas[i+1];
-            vec3 kappa_2 = m_kappas[i+1];
-            vec3 eta     = eta_2 / eta_1;
-            vec3 kappa   = kappa_2 / eta_1;
-            vec2 alpha  = m_alphas[i];
+			vec3 eta_2   = m_etas[i+1];
+			vec3 kappa_2 = m_kappas[i+1];
+			vec3 eta     = eta_2 / eta_1;
+			vec3 kappa   = kappa_2 / eta_1;
+			vec2 alpha  = m_alphas[i];
 			mat2 rotate  = m_rotate[i];
-            float n12    = average(eta);
+			float n12    = average(eta);
 
 			vec3 R12 = vec3(0.0, 0.0, 0.0), T12 = vec3(0.0, 0.0, 0.0), R21 = vec3(0.0, 0.0, 0.0), T21 = vec3(0.0, 0.0, 0.0);
-            float j12=1.0, j21=1.0, ctt = 0.0;
+			float j12=1.0, j21=1.0, ctt = 0.0;
 			mat2  s_r12_ = mat2(0.0, 0.0, 0.0, 0.0), s_r21_=mat2(0.0, 0.0, 0.0, 0.0), s_t12_=mat2(0.0, 0.0, 0.0, 0.0), s_t21_=mat2(0.0, 0.0, 0.0, 0.0);
 
 			//Evaluate off-specular transmission
 			float sti = sqrt(1.0f - cti*cti);
-            float stt = sti / n12;
+			float stt = sti / n12;
 			if(stt <= 1.0f) {
 				//const float scale = _clamp<float>((1.0f-alpha)*(sqrt(1.0f-alpha) + alpha), 0.0f, 1.0f);
 				//stt = scale*stt + (1.0f-scale)*sti;
@@ -288,7 +288,7 @@
 			}
 
 			/* Ray is not block by conducting interface or total reflection */
-            const bool has_transmissive = ctt > 0.0f && isZero(kappa);
+			const bool has_transmissive = ctt > 0.0f && isZero(kappa);
 
 			/* Evaluate interface variance term */
 			vec2 s_r12 = roughnessToVariance(alpha);
@@ -311,16 +311,16 @@
 			}
 
 			/* Evaluate r12, r21, t12, t21 */
-            evalFresnel(cti, eta, kappa, R12, T12);
+			evalFresnel(cti, eta, kappa, R12, T12);
 			if(has_transmissive) {
-                    R21 = R12;
-                    T21 = T12 /* (n12*n12) */; // We don't need the IOR scaling since we are
-                    T12 = T12 /* (n12*n12) */; // computing reflectance only here.
-            } else {
-                    R21 = 0.0;
-                    T21 = 0.0;
-                    T12 = 0.0;
-            }
+					R21 = R12;
+					T21 = T12 /* (n12*n12) */; // We don't need the IOR scaling since we are
+					T12 = T12 /* (n12*n12) */; // computing reflectance only here.
+			} else {
+					R21 = 0.0;
+					T21 = 0.0;
+					T12 = 0.0;
+			}
 
 			/* Multiple scattering forms */
 			const vec3 denom = (1.0 - Ri0*R12);
@@ -345,45 +345,45 @@
 			const float r21   = average(R21);
 
 			/* Evaluate the adding operator on the normalized variance */
-            mat2 _s_r0i_ = (r0i*s_r0i_ + m_r0i*(s_ti0_ + j0i*(s_t0i_ + s_r12_ + m_rr*(s_r12_+s_ri0_)))) ;// e_r0i;
-            mat2 _s_t0i_ = j12*s_t0i_ + s_t12_ + j12*(s_r12_ + s_ri0_)*m_rr;
-            mat2 _s_ri0_ = (r21*s_r21_ + m_ri0*(s_t12_ + j12*(s_t21_ + s_ri0_ + m_rr*(s_r12_+s_ri0_)))) ;// e_ri0;
-            mat2 _s_ti0_ = ji0*s_t21_ + s_ti0_ + ji0*(s_r12_ + s_ri0_)*m_rr;
-            _s_r0i_ = (e_r0i > 0.0) ? _s_r0i_/e_r0i : 0.0;
-            _s_ri0_ = (e_ri0 > 0.0) ? _s_ri0_/e_ri0 : 0.0;
+			mat2 _s_r0i_ = (r0i*s_r0i_ + m_r0i*(s_ti0_ + j0i*(s_t0i_ + s_r12_ + m_rr*(s_r12_+s_ri0_)))) ;// e_r0i;
+			mat2 _s_t0i_ = j12*s_t0i_ + s_t12_ + j12*(s_r12_ + s_ri0_)*m_rr;
+			mat2 _s_ri0_ = (r21*s_r21_ + m_ri0*(s_t12_ + j12*(s_t21_ + s_ri0_ + m_rr*(s_r12_+s_ri0_)))) ;// e_ri0;
+			mat2 _s_ti0_ = ji0*s_t21_ + s_ti0_ + ji0*(s_r12_ + s_ri0_)*m_rr;
+			_s_r0i_ = (e_r0i > 0.0) ? _s_r0i_/e_r0i : 0.0;
+			_s_ri0_ = (e_ri0 > 0.0) ? _s_ri0_/e_ri0 : 0.0;
 
 			/* Store the coefficient and variance */
-            if(m_r0i > 0.0) {
-                coeffs[i] = m_R0i;
+			if(m_r0i > 0.0) {
+				coeffs[i] = m_R0i;
 				variance_mat[i] = s_ti0_ + j0i*(s_t0i_ + s_r12_ + m_rr*(s_r12_+s_ri0_));
-            } else {
-                coeffs[i] = 0.0;
+			} else {
+				coeffs[i] = 0.0;
 				variance_mat[i] = 0.0;
-            }
+			}
 
 			/* Update energy */
-            R0i = e_R0i;
-            T0i = e_T0i;
-            Ri0 = e_Ri0;
-            Ti0 = e_Ti0;
+			R0i = e_R0i;
+			T0i = e_T0i;
+			Ri0 = e_Ri0;
+			Ti0 = e_Ti0;
 
-            /* Update mean */
-            cti = ctt;
+			/* Update mean */
+			cti = ctt;
 
-            /* Update variance */
-            s_r0i_ = _s_r0i_;
-            s_t0i_ = _s_t0i_;
-            s_ri0_ = _s_ri0_;
-            s_ti0_ = _s_ti0_;
+			/* Update variance */
+			s_r0i_ = _s_r0i_;
+			s_t0i_ = _s_t0i_;
+			s_ri0_ = _s_ri0_;
+			s_ti0_ = _s_ti0_;
 
-            /* Update jacobian */
-            j0i *= j12;
-            ji0 *= j21;
+			/* Update jacobian */
+			j0i *= j12;
+			ji0 *= j21;
 
 			/* Escape if a conductor is present */
-            if(average(kappa) > 0.0) {
-               return;
-            }
+			if(average(kappa) > 0.0) {
+				return;
+			}
 		}
 	}
 
